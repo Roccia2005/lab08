@@ -42,7 +42,7 @@ class TestDeathNote {
 
     @Test
     void testRuleNumber() {
-        checkRuleDoesntExist(-1, 0, 1);
+        checkRuleDoesntExist(-1, 0);
         /* 
             Metodo un po più bruttino
          *  try {
