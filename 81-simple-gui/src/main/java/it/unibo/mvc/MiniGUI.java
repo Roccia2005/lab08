@@ -3,14 +3,11 @@ package it.unibo.mvc;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-import javax.swing.border.Border;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.awt.TextField;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -38,7 +35,7 @@ public class MiniGUI {
         final JPanel canvas = new JPanel();
         canvas.setLayout(new BorderLayout());
 
-        final JPanel myPanel= new JPanel();
+        final JPanel myPanel = new JPanel();
         myPanel.setLayout(new BoxLayout(myPanel, BoxLayout.X_AXIS));
 
         final JButton write = new JButton("Print a random number on standard output");
@@ -47,7 +44,7 @@ public class MiniGUI {
 
         final JTextField result = new JTextField("Result : ");
 
-        canvas.add(result,BorderLayout.NORTH);
+        canvas.add(result, BorderLayout.NORTH);
 
         frame.setContentPane(canvas);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -57,8 +54,8 @@ public class MiniGUI {
         write.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(final ActionEvent e) {
-                int casualNumber = randomGenerator.nextInt();
-                System.out.println(Integer.toString(casualNumber));
+                final int casualNumber = randomGenerator.nextInt();
+                System.out.println(Integer.toString(casualNumber)); //NOPMD
                 result.setText(Integer.toString(casualNumber));
             }
         });
