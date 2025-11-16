@@ -18,6 +18,9 @@ class TestDeathNote {
     private static final String CAUSE_OF_DEATH = "Heart Attack";
     private static final String SECOND_CAUSE_OF_DEATH = "Karting Incident";
     private static final int NUMER_OF_RULES = 13;
+    private static final String DETAILS = "Run for too long";
+    private static final int CAUSE_TIME = 100;
+    private static final int DETAILS_TIME = 6100;
 
     private DeathNoteImpl myDeathNote;
 
@@ -34,7 +37,7 @@ class TestDeathNote {
                     @Override
                     public void execute() throws Throwable {
                         myDeathNote.getRule(number);
-                    }          
+                    }
                 }
             );
         }
@@ -83,7 +86,7 @@ class TestDeathNote {
                 @Override
                 public void execute() throws Throwable {
                     myDeathNote.writeDeathCause(CAUSE_OF_DEATH);
-                }  
+                }
             }
         );
         myDeathNote.writeName(PAOLO);
@@ -91,8 +94,30 @@ class TestDeathNote {
         myDeathNote.writeName(GIORGIO);
         assertTrue(myDeathNote.writeDeathCause(SECOND_CAUSE_OF_DEATH));
         assertEquals(myDeathNote.getDeathCause(GIORGIO), SECOND_CAUSE_OF_DEATH);
-        Thread.sleep(100);
+        Thread.sleep(CAUSE_TIME);
         assertFalse(myDeathNote.writeDeathCause(CAUSE_OF_DEATH));
         assertEquals(myDeathNote.getDeathCause(GIORGIO), SECOND_CAUSE_OF_DEATH);
+    }
+
+    @Test
+    void testDeathDetails() throws InterruptedException {
+        assertThrowsExactly(
+            IllegalStateException.class,
+            new Executable() {
+
+                @Override
+                public void execute() throws Throwable {
+                    myDeathNote.writeDetails(DETAILS);
+                }
+            }
+            );
+            myDeathNote.writeName(PAOLO);
+            assertEquals("", myDeathNote.getDeathDetails(PAOLO));
+            assertTrue(myDeathNote.writeDetails(DETAILS));
+            assertEquals(DETAILS, myDeathNote.getDeathDetails(PAOLO));
+            myDeathNote.writeName(GIORGIO);
+            Thread.sleep(DETAILS_TIME);
+            assertFalse(myDeathNote.writeDetails(DETAILS));
+            assertEquals("", myDeathNote.getDeathDetails(GIORGIO));
     }
 }
